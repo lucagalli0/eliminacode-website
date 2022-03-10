@@ -32,10 +32,12 @@ const Home: NextPage = () => {
   const [result, setResult] = useState('');
   const [sleepTime, setSleepTime] = useState(1000);
   const [retries, setRetries] = useState(3);
+  const [loading, setLoaing] = useState(false);
 
-  const onClick = () => {
+  const onClick = async () => {
+    setLoaing(true);
     setResult('');
-    request(
+    await request(
       1000,
       () => fetch('/api/test'),
       retries,
@@ -43,6 +45,7 @@ const Home: NextPage = () => {
         setResult((d) => d + '\n' + msg + '\n' + JSON.stringify(data, null, 2));
       }
     );
+    setLoaing(false);
   };
 
   return (
@@ -76,7 +79,7 @@ const Home: NextPage = () => {
             />
           </label>
         </div>
-        <button type="button" onClick={onClick}>
+        <button type="button" onClick={onClick} disabled={loading}>
           fetch
         </button>
         <pre className={styles.code}>{result}</pre>
