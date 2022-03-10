@@ -41,7 +41,7 @@ const Home: NextPage = () => {
     setLoaing(true);
     setResult('');
     await request(
-      1000,
+      sleepTime,
       () =>
         fetch('/api/test', {
           method: 'POST',
@@ -49,7 +49,7 @@ const Home: NextPage = () => {
         }),
       retries,
       ({ data, msg }) => {
-        setResult((d) => d + '\n' + msg + '\n' + JSON.stringify(data, null, 2));
+        setResult((d) => d + '\n' + JSON.stringify(data, null, 2) + '\n' + msg);
       }
     );
     setLoaing(false);
