@@ -32,6 +32,9 @@ const Home: NextPage = () => {
   const [result, setResult] = useState('');
   const [sleepTime, setSleepTime] = useState(1000);
   const [retries, setRetries] = useState(3);
+  const [requestBody, setRequestBody] = useState(
+    JSON.stringify({ GetCalendarStatus: { CalendarId: 108 } })
+  );
   const [loading, setLoaing] = useState(false);
 
   const onClick = async () => {
@@ -39,7 +42,11 @@ const Home: NextPage = () => {
     setResult('');
     await request(
       1000,
-      () => fetch('/api/test'),
+      () =>
+        fetch('/api/test', {
+          method: 'POST',
+          body: requestBody
+        }),
       retries,
       ({ data, msg }) => {
         setResult((d) => d + '\n' + msg + '\n' + JSON.stringify(data, null, 2));
@@ -76,6 +83,17 @@ const Home: NextPage = () => {
               type="number"
               value={retries}
               onChange={(e) => setRetries(Number(e.target.value))}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="request" className={styles.flex}>
+            Request:
+            <textarea
+              id="request"
+              value={requestBody}
+              rows={8}
+              onChange={(e) => setRequestBody(e.target.value)}
             />
           </label>
         </div>
