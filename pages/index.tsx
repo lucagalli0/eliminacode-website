@@ -33,7 +33,7 @@ const Home: NextPage = () => {
   const [sleepTime, setSleepTime] = useState(1000);
   const [retries, setRetries] = useState(3);
   const [requestBody, setRequestBody] = useState(
-    JSON.stringify({ GetCalendarStatus: { CalendarId: 108 } })
+    JSON.stringify({ GetCalendarStatus: { CalendarId: '108' } })
   );
   const [loading, setLoaing] = useState(false);
 
